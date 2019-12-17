@@ -1,0 +1,204 @@
+/*
+ * Base structure
+ */
+html, body {
+	height: 100%;
+	background-image: linear-gradient(to bottom right, #f1f1f1 , #31708f);
+}
+
+body {
+	display: -ms-flexbox;
+	display: flex;
+	color: #fff;
+	text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
+}
+
+.cover-container {
+	max-width: 42em;
+}
+
+/*
+ * Header
+ */
+.masthead {
+	margin-bottom: 2rem;
+}
+
+.masthead-brand {
+	margin-bottom: 0;
+	color: #31708f;
+}
+
+.nav-masthead .nav-link {
+	padding: .25rem 0;
+	font-weight: 700;
+	color: rgba(255, 255, 255, .5);
+	background-color: transparent;
+	border-bottom: .25rem solid transparent;
+}
+
+.nav-masthead .nav-link:hover, .nav-masthead .nav-link:focus {
+	color: white;
+	border-bottom-color: #31708f;
+}
+
+.nav-masthead .nav-link+.nav-link {
+	margin-left: 1rem;
+}
+
+.nav-masthead .active {
+	color: #31708f;
+	border-bottom-color: white;
+}
+
+@media ( min-width : 48em) {
+	.masthead-brand {
+		float: left;
+	}
+	.nav-masthead {
+		float: right;
+	}
+}
+
+/*
+ * Cover
+ */
+.cover {
+	padding: 0 1.5rem;
+}
+
+.cover .btn-lg {
+	padding: .75rem 1.25rem;
+	font-weight: 700;
+}
+
+.cover-container {
+	max-width: 65em;
+}
+
+/*
+ * Footer
+ */
+.mastfoot {
+	color: white;
+	font-weight: 500;
+}
+
+.all-form {
+	box-shadow: 20px 20px 60px slategray;
+	border-radius: 5px;
+	text-shadow: none;
+	background-color: white;
+	text-align: left;
+	color: grey;
+}
+
+#loginForm>.col-sm-12:first-child {
+	padding: 0;
+}
+
+.form-label {
+	color: inherit;
+}
+
+.form-header {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.app-lead {
+	font-size: xx-large;
+    color: #31708f;
+}
+
+.form-row-padding {
+	padding-bottom: 15px;
+}
+
+.form-btn-row {
+	padding: 0 15px 15px 15px;
+}
+
+.form-tab, #termsAgreementDiv {
+	display: none;
+}
+
+[class^="fas fa"] {
+	color: #31708f;
+}
+
+.custom-control-input:checked ~.custom-control-label::before {
+	color: #fff;
+	border-color: #31708f;
+	background-color: #31708f;
+}
+
+.my-url {
+	color: #31708f;
+	text-decoration: underline;
+}
+
+/* Make circles that indicate the steps of the form: */
+.step {
+	height: 15px;
+	width: 15px;
+	margin: 0 2px;
+	background-color: #bbbbbb;
+	border: none;
+	border-radius: 50%;
+	display: inline-block;
+	opacity: 0.5;
+}
+
+/* Mark the active step: */
+.step.active {
+	opacity: 1;
+}
+
+/* Mark the steps that are finished and valid: */
+.step.finish {
+	background-color: #31708f;
+}
+
+.stepper-nav {
+	padding: 0;
+	background-color: #f8f8f8;
+}
+
+.stepper-nav>a.nav-item.nav-link.active, .stepper-nav>a.nav-item.nav-link:hover,
+	.stepper-nav>a.nav-item.nav-link:focus {
+	background-color: #31708f;
+	color: white;
+}
+
+.stepper-nav>a.nav-item.nav-link {
+	color: #999999;
+}
+
+footer>div>p>a {
+	color: white;
+}
+
+.custom-range::-webkit-slider-thumb {
+  background: #31708f;
+}
+
+#income {
+	color: #31708f;
+	padding-left: 20px;
+}
+
+#registrationDiv {
+	display: none;
+}
+
+.card-icon-login {
+    border-radius: 3px;
+    border-color: #31708f;
+    border-style: solid;
+    background-color: white;
+    padding: 15px;
+    margin-top: -60px;
+    margin-right: 15px;
+    float: left;
+}

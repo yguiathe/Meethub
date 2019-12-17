@@ -1,0 +1,246 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="fragments/css_files :: css(title=#{meethub.home})">
+</head>
+<body>
+	<!-- Disappearing alert (confirmation) -->
+	<div class="confirmation-alert"></div>
+	<div id="wrapper">
+
+		<!-- Sidebar -->
+		<div id="sidebar">
+			<div id="sidebar-wrapper">
+				<div class="logo">
+					<img class="rounded mx-auto d-block"
+						th:src="@{/static/img/logo.png}" width="70" height="70" alt="">
+				</div>
+				<div id="uname">
+					<h6 class="card-subtitle mb-2 text-muted text-center"
+						th:text="|${userDto.firstName} ${userDto.lastName}|">Alex
+						Thompson</h6>
+				</div>
+				<ul class="nav app-v-nav">
+					<li class="nav-item active"><a class="nav-link"
+						href="#home-tab"> <i class="fas fa-home"></i>
+							<p class="menu-label">Home</p>
+					</a></li>
+					<li><a class="nav-link" href="#teams-tab"> <i
+							class="fas fa-users"></i>
+							<p class="menu-label">Teams</p>
+					</a></li>
+					<li><a class="nav-link" href="#applications-tab"> <i
+							class="fas fa-file-signature"></i>
+							<p class="menu-label">Applications</p>
+					</a></li>
+					<li><a class="nav-link" href="#profile-tab"> <i
+							class="fas fa-address-card"></i>
+							<p class="menu-label">Profile</p>
+					</a></li>
+					<li class="nav-item logout-btn"><a class="nav-link active"
+						href="/logout" th:href="@{#}"
+						onclick="$('#logout-form').submit();"> <i
+							class="fas fa-sign-out-alt"></i>
+							<p class="menu-label">Log out</p>
+					</a>
+						<form style="visibility: hidden" id="logout-form" method="post"
+							action="#" th:action="@{/logout}"></form></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Page Content -->
+		<div id="page-content-wrapper">
+			<div th:replace="fragments/header :: header(title=#{meethub.vendor})"></div>
+			<div class="content" id="home-tab">
+				<div th:replace="fragments/landing::home"></div>
+			</div>
+			<div class="content d-none" id="teams-tab"></div>
+			<div class="content d-none" id="applications-tab">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12 page-titles">
+							<h3>Applications</h3>
+						</div>
+					</div>
+					<div class="row" style="padding-top: 15px;">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-header card-header-tabs">
+									<div class="nav-tabs-navigation">
+										<div class="nav-tabs-wrapper">
+											<ul class="nav nav-tabs h-nav-tabs" data-tabs="tabs">
+												<li class="nav-item"><a
+													class="nav-link h-nav-link active show"
+													href="#new_application" data-toggle="tab"> <i
+														class="fas fa-plus-square"></i> New
+												</a></li>
+												<li class="nav-item"><a class="nav-link h-nav-link"
+													href="#pending_application" data-toggle="tab"> <i
+														class="fas fa-hourglass-half"></i> Pending
+												</a></li>
+												<li class="nav-item"><a class="nav-link h-nav-link"
+													href="#approved_application" data-toggle="tab"> <i
+														class="fas fa-thumbs-up"></i> Approved
+												</a></li>
+											</ul>
+										</div>
+									</div>
+								</div>
+								<div class="card-body">
+									<div class="tab-content">
+										<div class="tab-pane table-responsive active show"
+											id="new_application">
+											<form class="">
+												<div class="form-group col-sm-5">
+													<input type="text" id="mtgsearch" class="form-control"
+														aria-describedby="searchHelpInline"> <small
+														id="searchHelpInline" class="text-muted"> Start
+														typing the name of the team you would like to join. </small>
+												</div>
+											</form>
+											<div id="resultsDiv"></div>
+										</div>
+										<div class="tab-pane table-responsive-md"
+											id="pending_application">
+											<table class="table">
+												<tbody>
+													<tr>
+														<td>
+															<div class="form-check">
+																<label class="form-check-label"> <input
+																	class="form-check-input" type="checkbox" value=""
+																	checked=""> <span class="form-check-sign">
+																		<span class="check"></span>
+																</span>
+																</label>
+															</div>
+														</td>
+														<td>Flooded: One year later, assessing what was lost
+															and what was found when a ravaging rain swept through
+															metro Detroit</td>
+														<td class="td-actions text-right">
+															<button type="button" rel="tooltip" title=""
+																class="btn btn-primary btn-link btn-sm"
+																data-original-title="Edit Task">
+																<i class="material-icons">edit</i>
+															</button>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="form-check">
+																<label class="form-check-label"> <input
+																	class="form-check-input" type="checkbox" value="">
+																	<span class="form-check-sign"> <span
+																		class="check"></span>
+																</span>
+																</label>
+															</div>
+														</td>
+														<td>Sign contract for "What are conference organizers
+															afraid of?"</td>
+														<td class="td-actions text-right">
+															<button type="button" rel="tooltip" title=""
+																class="btn btn-primary btn-link btn-sm"
+																data-original-title="Edit Task">
+																<i class="material-icons">edit</i>
+															</button>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<div class="tab-pane table-responsive-md"
+											id="approved_application">
+											<table class="table">
+												<tbody>
+													<tr>
+														<td>
+															<div class="form-check">
+																<label class="form-check-label"> <input
+																	class="form-check-input" type="checkbox" value="">
+																	<span class="form-check-sign"> <span
+																		class="check"></span>
+																</span>
+																</label>
+															</div>
+														</td>
+														<td>Lines From Great Russian Literature? Or E-mails
+															From My Boss?</td>
+														<td class="td-actions text-right">
+															<button type="button" rel="tooltip" title=""
+																class="btn btn-primary btn-link btn-sm"
+																data-original-title="Edit Task">
+																<i class="material-icons">edit</i>
+															</button>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="form-check">
+																<label class="form-check-label"> <input
+																	class="form-check-input" type="checkbox" value=""
+																	checked=""> <span class="form-check-sign">
+																		<span class="check"></span>
+																</span>
+																</label>
+															</div>
+														</td>
+														<td>Flooded: One year later, assessing what was lost
+															and what was found when a ravaging rain swept through
+															metro Detroit</td>
+														<td class="td-actions text-right">
+															<button type="button" rel="tooltip" title=""
+																class="btn btn-primary btn-link btn-sm"
+																data-original-title="Edit Task">
+																<i class="material-icons">edit</i>
+															</button>
+														</td>
+													</tr>
+													<tr>
+														<td>
+															<div class="form-check">
+																<label class="form-check-label"> <input
+																	class="form-check-input" type="checkbox" value=""
+																	checked=""> <span class="form-check-sign">
+																		<span class="check"></span>
+																</span>
+																</label>
+															</div>
+														</td>
+														<td>Sign contract for "What are conference organizers
+															afraid of?"</td>
+														<td class="td-actions text-right">
+															<button type="button" rel="tooltip" title=""
+																class="btn btn-primary btn-link btn-sm"
+																data-original-title="Edit Task">
+																<i class="material-icons">edit</i>
+															</button>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="content d-none" id="profile-tab">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-12 page-titles">
+							<h3>Profile</h3>
+						</div>
+					</div>
+					<div class="row"></div>
+				</div>
+			</div>
+			<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	</div>
+	<div th:replace="fragments/js_files :: js"></div>
+</body>
+</html>

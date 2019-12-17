@@ -1,0 +1,65 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<div th:fragment="team_created"
+		class="alert alert-success alert-dismissible animated bounceInRight slow delay-2s"
+		role="alert">
+		<strong>Holy guacamole!</strong> You have just created another Tim...
+		oops - Team
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>
+	</div>
+	
+	<div class="alert alert-warning" role="alert" th:fragment="no_search_results">
+		There is no meeting with the name <b><span th:text="${name}"></span></b>
+	</div>
+	
+	<div th:fragment="application_submitted"
+		class="alert alert-success alert-dismissible animated bounceInRight slow delay-2s"
+		role="alert">
+		<strong>Your application #<span th:text="${application.id}"></span> has now been submitted!</strong> Arm yourself with patience while this latter is being processed.
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>
+	</div>
+
+	<table class="table" th:fragment="search_results">
+		<thead class="text-primary">
+			<tr>
+				<th></th>
+				<th>Name/Description</th>
+				<th>Address</th>
+				<th># of Members</th>
+				<th>Min. Contribution</th>
+				<th>Active since</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="meeting : ${mtgList}">
+				<td><img class="rounded-circle" style="width: 40px;"
+					th:src="@{/static/img/default-avatar.png}" alt="activity-user"></td>
+				<td><h6 class="mb-1" th:text="${meeting.name}">Meeting Name</h6>
+					<p class="m-0" th:text="${meeting.shortDesc}">Meeting Description</p></td>
+				<td th:text="|${meeting.province}, ${meeting.countryOfIncorp}|">CA, USA</td>
+				<td th:text="${meeting.membersCnt}">300</td>
+				<td th:text="${meeting.minContribution}?: 'None'">$500</td>
+				<td th:text="${#temporals.format(meeting.created, 'dd-MMM-yyyy')}">3 years</td>
+				<td class="td-actions text-right">
+					<form>
+						<input type="hidden" name="mtg_id" th:attr="value=${meeting.id}"/>
+						<button type="button" rel="tooltip" title=""
+						class="btn btn-primary btn-link btn-sm mtg-application-btn"
+						data-original-title="Edit Task">
+						<i class="fas fa-paper-plane"></i> Apply
+						</button>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>

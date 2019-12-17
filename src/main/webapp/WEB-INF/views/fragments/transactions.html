@@ -1,0 +1,44 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<div th:fragment="transactions-list">
+		<table class="table table-sm table-striped">
+			<thead class="text-primary">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">Post Date</th>
+					<th scope="col">Description</th>
+					<th scope="col">Originator</th>
+					<th scope="col">Status</th>
+					<th scope="col">Amount</th>
+					<th scope="col">Available Balance</th>
+				</tr>
+			</thead>
+			<tbody id="trxPage">
+				<tr data-th-each="transaction : ${transactions}">
+					<th data-th-text="${transaction.id}" scope="row">1</th>
+					<td
+						data-th-text="${#temporals.format(transaction.created, 'dd-MM-yyyy HH:mm')}">...</td>
+					<td data-th-text="${transaction.description}">...</td>
+					<td
+						data-th-text="${transaction.originatorName == 'N/A'} ? 'Self': ${transaction.originatorName}">...</td>
+					<td data-th-text="${transaction.status}">...</td>
+					<td th:switch="${transaction.direction}"><span th:case="'I'"
+						th:style="'color: green;'" th:text="${transaction.amount}"></span>
+						<span th:case="'O'" th:style="'color: red;'"
+						th:text="|(${transaction.amount})|"></span></td>
+					<td data-th-text="${#numbers.formatCurrency(transaction.availableBalance)}">...</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div th:fragment="no_transactions">
+		<p class="card-text lead">
+			<i class="fas fa-info-circle"></i>&nbsp;&nbsp;<span
+				th:text="#{meeting.no_transaction_msg}">With supporting text
+				below as a natural lead-in to additional content.</span>
+		</p>
+	</div>
+</body>
+</html>

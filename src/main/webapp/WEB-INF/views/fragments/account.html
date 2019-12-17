@@ -1,0 +1,466 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<div th:fragment="successful-transaction"
+		class="alert alert-success alert-dismissible animated bounceInRight slow delay-2s"
+		role="alert">
+		<strong>Holy carnitas!</strong>You've just successfully executed a
+		transaction!
+		<button type="button" class="close" data-dismiss="alert"
+			aria-label="Close">
+			<span aria-hidden="true">×</span>
+		</button>
+	</div>
+	<div th:fragment="no_account_details">
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="row">
+						<div class="col-12">
+							<div class="card-body">
+								<div class="row">
+									<div class="col" th:switch="${actType}">
+										<div th:case="'LOA'">
+											<h5 class="card-title mb-0 color-lblue">Loans</h5>
+											<hr class="hr-acct-details color-lblue">
+										</div>
+										<div th:case="'INV'">
+											<h5 class="card-title mb-0 color-yellow">Investments</h5>
+											<hr class="hr-acct-details color-yellow">
+										</div>
+									</div>
+									<div class="col-auto" th:switch="${actType}">
+										<div th:case="'LOA'"
+											class="icon icon-shape bg-gradient-lblue text-white rounded-circle shadow">
+											<i class="fas fa-handshake"></i>
+										</div>
+										<div th:case="'INV'"
+											class="icon icon-shape bg-gradient-yellow text-white rounded-circle shadow">
+											<i class="fas fa-lightbulb"></i>
+										</div>
+									</div>
+								</div>
+								<div class="row justify-content-center" style="height: 8rem;">
+									<p class="card-text lead pt-5">
+										<i class="fas fa-info-circle"></i>&nbsp;&nbsp; <span
+											th:switch="${actType}"> <span th:case="'LOA'"
+											th:text="#{meeting.no_loan_msg}"></span> <span
+											th:case="'INV'" th:text="#{meeting.no_investment_msg}"></span>
+										</span>
+									</p>
+								</div>
+								<hr>
+								<div class="row justify-content-center">
+									<div class="btn-toolbar" role="toolbar"
+										aria-label="Toolbar with button groups">
+										<div class="btn-group mr-2" role="group"
+											aria-label="Second group" th:switch="${actType}">
+											<button th:case="'LOA'" type="button" class="btn btn-primary">New
+												Loan</button>
+											<button th:case="'INV'" type="button" class="btn btn-primary">New
+												Project</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:fragment="account_details">
+		<div class="row">
+			<div class="col-9">
+				<div class="card">
+					<div class="row">
+						<div class="col-12">
+							<!-- Card body -->
+							<div class="card-body">
+								<div class="row">
+									<div class="col" th:switch="${account.acctType}">
+										<div th:case="'CHK'">
+											<h5 class="card-title mb-0 color-dblue">Checking</h5>
+											<hr class="hr-acct-details color-dblue">
+										</div>
+										<div th:case="'SAV'">
+											<h5 class="card-title mb-0 color-lgreen">Savings</h5>
+											<hr class="hr-acct-details color-lgreen">
+										</div>
+										<div th:case="*">
+											<h5 class="card-title mb-0 color-yellow">Loans/Invs</h5>
+											<hr class="hr-acct-details color-yellow">
+										</div>
+										<span class="h7 font-weight-bold mb-0 act-crd-title"><span
+											th:text="${account.accountNumber}?: 'N/A'">31314342-SAV</span>
+											| <i class="far fa-dot-circle" style="color: green;"></i> </span>
+									</div>
+									<div class="col-auto" th:switch="${account.acctType}">
+										<div th:case="'CHK'"
+											class="icon icon-shape bg-gradient-dblue text-white rounded-circle shadow">
+											<i class="fas fa-money-check-alt"></i>
+										</div>
+										<div th:case="'SAV'"
+											class="icon icon-shape bg-gradient-lgreen text-white rounded-circle shadow">
+											<i class="fas fa-piggy-bank"></i>
+										</div>
+										<div th:case="*"
+											class="icon icon-shape bg-gradient-yellow text-white rounded-circle shadow">
+											<i class="fas fa-lightbulb"></i>
+										</div>
+									</div>
+								</div>
+								<div class="row row-acct-details">
+									<div class="col-3">
+										<h7>Account Number</h7>
+										<p class="text-muted"
+											th:text="${account.accountNumber}?: 'N/A'">31314342-SAV</p>
+									</div>
+									<div class="col-3">
+										<h7>Open Date</h7>
+										<p class="text-muted"
+											th:text="${#temporals.format(account.created, 'MM/dd/yyyy')}?: 'N/A'">06/03/2019</p>
+									</div>
+									<div class="col-3">
+										<h7>Overdraft Limit</h7>
+										<p class="text-muted"
+											th:text="${account.overdraftLimit}?: 'N/A'">$5,000</p>
+									</div>
+									<div class="col-3">
+										<span class="h2 font-weight-bold mb-0 act-crd-title"
+											th:text="${#numbers.formatCurrency(account.balance)}?: 'N/A'">$350,897</span> <small
+											class="form-text text-muted">Balance as of <span th:text="${#dates.format(#dates.createNow(), 'MM/dd/yyyy')}">01/01/2019</span></small>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-3">
+										<h7>Balance on last statement</h7>
+										<p class="text-muted"
+											th:text="${account.lastStmtBalance}?: 'N/A'">$5,000</p>
+									</div>
+									<div class="col-3">
+										<h7>Next Statement</h7>
+										<p class="text-muted"
+											th:text="${#temporals.format(account.nextStmt, 'MM/dd/yyyy')}?: 'N/A'">07/03/2019</p>
+									</div>
+									<div class="col-3">
+										<h7></h7>
+										<p class="text-muted"></p>
+									</div>
+									<div class="col-3">
+										<h7></h7>
+										<p class="text-muted"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row justify-content-center">
+									<div class="btn-toolbar" role="toolbar"
+										aria-label="Toolbar with button groups">
+										<div class="btn-group mr-2" role="group"
+											aria-label="First group">
+											<button id="btnGroupDrop1" type="button"
+												class="btn btn-primary dropdown-toggle"
+												data-toggle="dropdown" aria-haspopup="true"
+												aria-expanded="false">Transact</button>
+											<div class="dropdown-menu" aria-labelledby="btnGroupDrop1"
+												id="transaction-menu">
+												<a class="dropdown-item dep" href="#"
+													th:attr="id=${account.id}">Deposit</a> <a
+													class="dropdown-item wit" href="#"
+													th:attr="id=${account.id}">Withdraw</a> <a
+													class="dropdown-item sav" href="#"
+													th:attr="id=${account.id}">Save</a> <a
+													class="dropdown-item con" href="#"
+													th:attr="id=${account.id}">Contribute</a>
+											</div>
+										</div>
+										<div class="btn-group mr-2" role="group"
+											aria-label="Second group">
+											<button type="button" class="btn btn-primary">Transfer</button>
+										</div>
+										<div class="btn-group mr-2" role="group"
+											aria-label="Third group">
+											<button type="button" class="btn btn-primary">Print</button>
+										</div>
+										<div class="btn-group" role="group" aria-label="Third group">
+											<button type="button" class="btn btn-primary">Freeze</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-3">
+				<div class="card card-chart">
+					<div class="card-header card-header-success"
+						style="background: #287498">
+						<div style="width: 100%;" th:switch="${account.acctType}">
+							<canvas th:case="'CHK'" id="chart-area-1"></canvas>
+							<canvas th:case="'SAV'" id="chart-area-2"></canvas>
+							<canvas th:case="*" id="chart-area-3"></canvas>
+						</div>
+					</div>
+					<div class="card-body">
+						<h4 class="card-title">Cash Flow Overview</h4>
+						<p class="card-category">
+							<span class="text-success"><i class="fas fa-chart-line"></i>
+							</span> Last Month Performance
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-12">
+				<div class="card">
+					<div class="card-header card-header-tabs">
+						<div class="row nav-tabs-navigation justify-content-between">
+							<div class="col-4">
+								<h4 class="card-title text-white">Transactions</h4>
+							</div>
+							<form>
+								<div class="form-row">
+									<div class="col-4">
+										<input type="text" class="form-control"
+											placeholder="From date">
+									</div>
+									<div class="col-4">
+										<input type="text" class="form-control" placeholder="To date">
+									</div>
+									<div class="col-4">
+										<button type="submit" class="btn btn-primary mb-2">Filter</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="card-body">
+						<div th:if="${#lists.isEmpty(transactions)}" class="row">
+							<div class="col-12 text-center"
+								style="height: 12rem; padding: 50px;"
+								th:include="fragments/transactions :: no_transactions"></div>
+						</div>
+						<div th:if="${not #lists.isEmpty(transactions)}"
+							class="table-responsive"
+							th:include="fragments/transactions :: transactions-list"></div>
+						<div th:if="${not #lists.isEmpty(transactions)}" class="row">
+							<div class="col-12 d-flex justify-content-center">
+								<nav aria-label="transaction pagination">
+									<ul class="pagination" th:if="${transactions.totalPages gt 0}">
+										<li class="page-item"
+											th:classappend="${transactions.number eq 0} ? 'disabled'"><a
+											class="page-link"
+											th:href="@{/Accounts/transactions?page={id}(id=${transactions.number lt 2 ? 1 : transactions.number})}"
+											aria-label="Previous" title="Previous Page" rel="tooltip">Previous</a></li>
+										<li class="page-item"
+											th:classappend="${i eq transactions.number + 1} ? 'active'"
+											th:each="i : ${#numbers.sequence( transactions.number + 1, transactions.totalPages > 10 + transactions.number ? transactions.number + 10 : transactions.totalPages, 1)}">
+											<a class="page-link"
+											th:href="@{/Accounts/transactions?page={id}(id=${i})}"
+											th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></a>
+										</li>
+										<li class="page-item disabled"
+											th:if="${transactions.number + 10 < transactions.totalPages}">
+											<a class="page-link" href="#">
+												<i class="fas fa-ellipsis-h"></i>
+											</a>
+										</li>
+										<li class="page-item"
+											th:classappend="${transactions.number + 1 eq transactions.totalPages} ? 'disabled'"><a
+											class="page-link"
+											th:href="@{/Accounts/transactions?page={id}(id=${transactions.number + 2})}"
+											aria-label="Next" title="Next Page" rel="tooltip">Next</a></li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div th:fragment="transaction_modal" class="modal-dialog modal-lg"
+		role="document">
+		<form method="POST" action="#" th:object="${transDto}"
+			id="transactionForm">
+			<div class="modal-content">
+				<div class="modal-header" th:switch="${transDto.transType}">
+					<h5 th:case="'con'" class="modal-title" id="exampleModalLongTitle">Contribution</h5>
+					<h5 th:case="'sav'" class="modal-title" id="exampleModalLongTitle">Saving</h5>
+					<h5 th:case="'dep'" class="modal-title" id="exampleModalLongTitle">Deposit</h5>
+					<h5 th:case="'wit'" class="modal-title" id="exampleModalLongTitle">Withdrawal</h5>
+					<h5 th:case="*" class="modal-title" id="exampleModalLongTitle">Transfer</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body container-fluid">
+					<div th:switch="${transDto.transType}">
+						<div class="row" th:case="'con'">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<div
+									class="icon icon-shape bg-gradient-dblue text-white rounded-circle shadow">
+									<i class="fas fa-donate"></i>
+								</div>
+							</div>
+							<div class="col-auto">
+								<h4 class="mt-2 card-title">Monthly contribution</h4>
+							</div>
+						</div>
+						<div class="row" th:case="'sav'">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<div
+									class="icon icon-shape bg-gradient-dblue text-white rounded-circle shadow">
+									<i class="fas fa-piggy-bank"></i>
+								</div>
+							</div>
+							<div class="col-auto">
+								<h4 class="mt-2 card-title">Passive income ahead!</h4>
+							</div>
+						</div>
+						<div class="row" th:case="'dep'">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<div
+									class="icon icon-shape bg-gradient-dblue text-white rounded-circle shadow">
+									<i class="fas fa-cubes"></i>
+								</div>
+							</div>
+							<div class="col-auto">
+								<h4 class="mt-2 card-title">More figures to your balance</h4>
+							</div>
+						</div>
+						<div class="row" th:case="'wit'">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<div
+									class="icon icon-shape bg-gradient-dblue text-white rounded-circle shadow">
+									<i class="fas fa-paper-plane"></i>
+								</div>
+							</div>
+							<div class="col-auto">
+								<h4 class="mt-2 card-title">Debiting your account!</h4>
+							</div>
+						</div>
+						<div class="row" th:case="*">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<div
+									class="icon icon-shape bg-gradient-dblue text-white rounded-circle shadow">
+									<i class="fas fa-credit-card"></i>
+								</div>
+							</div>
+							<div class="col-auto">
+								<h4 class="mt-2 card-title">Moving funds...</h4>
+							</div>
+						</div>
+						<br>
+					</div>
+					<div th:switch="${transDto.transType}">
+						<div th:case="'dep'" class="form-group row">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<span class="card-title col-form-label">To</span>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="${transDto.originatingAct.getTypeDescription()}">Checking</h4>
+								<p>
+									<span class="text-muted">Account# - </span><span
+										th:text="${transDto.originatingAct.accountNumber}"></span>
+								</p>
+							</div>
+						</div>
+						<div th:case="'wit'" class="form-group row">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<span class="card-title col-form-label">From</span>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="${transDto.originatingAct.getTypeDescription()}">Checking</h4>
+								<p>
+									<span class="text-muted">Account# - </span><span
+										th:text="${transDto.originatingAct.accountNumber}"></span>
+								</p>
+							</div>
+						</div>
+						<div th:case="*" class="form-group row">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<span class="card-title col-form-label">From</span>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="${transDto.originatingAct.getTypeDescription()}">Checking</h4>
+								<p>
+									<span class="text-muted">Account# - </span><span
+										th:text="${transDto.originatingAct.accountNumber}"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div th:switch="${transDto.transType}">
+						<div th:case="'con'" class="form-group row">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<span class="card-title col-form-label">To</span>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="${transDto.mtgName}">Checking</h4>
+								<p>
+									<span class="text-muted"
+										th:text="|${transDto.mtgCheckingAct.getTypeDescription()} account# -|">Account#
+										- </span><span th:text="${transDto.mtgCheckingAct.accountNumber}"></span>
+								</p>
+							</div>
+						</div>
+						<div th:case="'sav'" class="form-group row">
+							<div class="col-sm-3 d-flex justify-content-end">
+								<span class="card-title col-form-label">To</span>
+							</div>
+							<div class="col-sm-6">
+								<h4 th:text="${transDto.mtgName}">Checking</h4>
+								<p>
+									<span class="text-muted"
+										th:text="|${transDto.mtgSavingAct.getTypeDescription()} account# -|">Account#
+										- </span><span th:text="${transDto.mtgSavingAct.accountNumber}"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col-sm-3 d-flex justify-content-end">
+							<span class="card-title col-form-label">Amount</span>
+						</div>
+						<div class="col-sm-6">
+							<input type="text" th:field="*{amount}" class="form-control"
+								id="amount">
+						</div>
+					</div>
+					<input type="hidden" id="mtgCheckingAct"
+						th:field="*{mtgCheckingAct}"> <input type="hidden"
+						id="mtgSavingAct" th:field="*{mtgSavingAct}"> <input
+						type="hidden" id="originatingAct" th:field="*{originatingAct}">
+					<div class="form-group row">
+						<div class="col-sm-3 d-flex justify-content-end">
+							<span class="card-title col-form-label">Notes</span>
+						</div>
+						<div class="col-sm-6">
+							<textarea class="form-control" th:field="*{notes}" id="notes"
+								rows="3"></textarea>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer" th:switch="${transDto.transType}"
+					id="trs-form-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<a th:case="'con'" class="btn btn-primary" href="contribute"
+						role="button">Contribute</a> <a th:case="'sav'"
+						class="btn btn-primary" href="save" role="button">Save</a> <a
+						th:case="'dep'" class="btn btn-primary" href="deposit"
+						role="button">Deposit</a> <a th:case="'wit'"
+						class="btn btn-primary" href="withdraw" role="button">Withdraw</a>
+					<a th:case="*" class="btn btn-primary" href="transfer"
+						role="button">Transfer</a>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

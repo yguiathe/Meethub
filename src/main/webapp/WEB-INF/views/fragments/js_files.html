@@ -1,0 +1,22 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<div th:fragment="js">
+		<!-- Bootstrap core JavaScript
+    ================================================== -->
+		<!-- Placed at the end of the document so the pages load faster -->
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"
+			integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+			crossorigin="anonymous"></script>
+		<script th:src="@{/static/js/bootstrap/bootstrap.bundle.min.js}"
+			src="../../static/js/bootstrap/bootstrap.bundle.min.js"></script>
+		<script th:src="@{/static/js/add-ons/Chart.min.js}"
+			src="../../../static/js/add-ons/Chart.min.js"></script>
+		<script th:src="@{/static/js/app_main.js}"
+			src="../../static/js/app_main.js"></script>
+		<script th:src="@{/static/js/app_shared.js}"
+			src="../../static/js/app_shared.js"></script>
+	</div>
+</body>
+</html>

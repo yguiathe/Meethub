@@ -1,0 +1,19 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+	<div th:fragment="header(title)">
+		<nav
+			class="navbar navbar-expand-sm sticky-top justify-content-between">
+			<ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+				<li class="nav-item"><a class="navbar-brand" href="#"
+					id="menu-toggle"><i class="fas fa-align-left"></i></a></li>
+				<li class="nav-item"><a class="navbar-brand" href="#" th:text="${title}">Tayfint</a></li>
+			</ul>
+			<img class="rounded-circle" id="avatar"
+				th:src="${#strings.isEmpty(userDto.avatar)} ? @{/static/img/default-avatar.png} : |data:image/png;base64, ${userDto.avatar}|"
+				src="../../../static/img/default-avatar.png" width="35" height="35">
+		</nav>
+	</div>
+</body>
+</html>
